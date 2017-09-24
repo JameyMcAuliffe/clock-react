@@ -16,9 +16,21 @@ export class Clock extends Component {
 	}	
 
 	setTime(button) {
-		if (button === 'hrs' && this.state.hours !== 12) {
+		if (button === 'hrs' && this.state.hours < 11) {
 			this.setState({
 				hours: this.state.hours + 1
+			})
+		}
+		else if (button === 'hrs' && this.state.hours === 11 && this.state.orientation ==='am') {
+			this.setState({
+				hours: this.state.hours + 1,
+				orientation: 'pm'
+			})
+		}
+		else if (button === 'hrs' && this.state.hours === 11 && this.state.orientation ==='pm') {
+			this.setState({
+				hours: this.state.hours + 1,
+				orientation: 'am'
 			})
 		}
 		else if(button === 'hrs' && this.state.hours === 12) {
