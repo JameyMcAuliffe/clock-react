@@ -10,10 +10,32 @@ export class Clock extends Component {
 			hours: 12,
 			mins1: 0,
 			mins2: 0,
-			orientation: 'am'
+			orientation: 'am',
+			set: false,
+			timer: null,
+			colon: ':',
+			colonColor: {color: 'red'}
 		}
 		this.setTime = this.setTime.bind(this)
+		this.clockNotSet = this.clockNotSet.bind(this)
 	}	
+
+	clockNotSet() {
+		if(this.state.set === false) {
+			if(this.state.colonColor.color === 'red') {
+				this.setState({
+					colonColor: {color: '#2d2d2d'}
+				})
+			}
+			else{
+				this.setState({
+					colonColor: {color: 'red'}
+				})
+			}
+		}
+	}
+
+
 
 	setTime(button) {
 		if (button === 'hrs' && this.state.hours < 11) {
@@ -57,14 +79,14 @@ export class Clock extends Component {
 				})
 			}
 		}
-
 	}
 
 
 	render() {
+		setTimeout(this.clockNotSet, 1000)
 		return (
 			<div className="clock">
-				<Display mins1={this.state.mins1} mins2={this.state.mins2} hours={this.state.hours} orientation={this.state.orientation}/>
+				<Display mins1={this.state.mins1} mins2={this.state.mins2} hours={this.state.hours} orientation={this.state.orientation} colon={this.state.colon} colonColor={this.state.colonColor}/>
 				<Buttons onClick={this.setTime}/>
 			</div>
 		)
