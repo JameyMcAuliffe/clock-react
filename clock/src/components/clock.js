@@ -111,41 +111,41 @@ export class Clock extends Component {
 			})
 			this.stopClock()
 		}
-		else if (button === 'hrs' && this.state.hours < 11) {
+		else if (button === 'hrs' && this.state.hours < 11 &&this.state.set === false) {
 			this.setState({
 				hours: this.state.hours + 1
 			})
 		}
-		else if (button === 'hrs' && this.state.hours === 11 && this.state.orientation ==='am') {
+		else if (button === 'hrs' && this.state.hours === 11 && this.state.orientation ==='am' && this.state.set === false) {
 			this.setState({
 				hours: this.state.hours + 1,
 				orientation: 'pm'
 			})
 		}
-		else if (button === 'hrs' && this.state.hours === 11 && this.state.orientation ==='pm') {
+		else if (button === 'hrs' && this.state.hours === 11 && this.state.orientation ==='pm' && this.state.set === false) {
 			this.setState({
 				hours: this.state.hours + 1,
 				orientation: 'am'
 			})
 		}
-		else if(button === 'hrs' && this.state.hours === 12) {
+		else if(button === 'hrs' && this.state.hours === 12 && this.state.set === false) {
 			this.setState({
 				hours: 1
 			})
 		}
-		else if (button ==='mins') {
+		else if (button ==='mins' && this.state.set === false) {
 			if (this.state.mins2 < 9) {
 				this.setState({
 					mins2: this.state.mins2 + 1
 				})
 			}
-			else if (this.state.mins2 === 9 && this.state.mins1 < 5) {
+			else if (this.state.mins2 === 9 && this.state.mins1 < 5 && this.state.set === false) {
 				this.setState({
 					mins1: this.state.mins1 + 1,
 					mins2: 0
 				})
 			}
-			else if (this.state.mins2 === 9 && this.state.mins1 === 5){
+			else if (this.state.mins2 === 9 && this.state.mins1 === 5 &&this.state.set === false){
 				this.setState({
 					mins1: 0,
 					mins2: 0
