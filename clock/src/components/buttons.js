@@ -18,7 +18,7 @@ export class Buttons extends Component {
 				<button value="hrs" className="timer-buttons" onClick={this.handleClick}>Hrs</button>
 				<button value="mins" className="timer-buttons" onClick={this.handleClick}>Mins</button>
 				<div>
-					<button className="set-button">Set</button>
+					<button value="set" className="set-button" onClick={this.handleClick}>Set</button>
 				</div>
 			</div>
 		)

@@ -18,7 +18,9 @@ export class Clock extends Component {
 		}
 		this.setTime = this.setTime.bind(this)
 		this.clockNotSet = this.clockNotSet.bind(this)
+		this.runClock = this.runClock.bind(this)
 	}	
+
 
 	clockNotSet() {
 		if(this.state.set === false) {
@@ -35,10 +37,68 @@ export class Clock extends Component {
 		}
 	}
 
+	componentDidMount() {
+		setInterval(this.clockNotSet, 1000)
+	}
 
+	runClock() {
+		if(this.state.mins2 < 9) {
+			this.setState({
+				mins2: this.state.mins2 + 1
+			})
+		}
+		else if(this.state.mins2 === 9 && this.state.mins1 < 5) {
+			this.setState({
+				mins2: 0,
+				mins1: this.state.mins1 + 1
+			})
+		}
+		else if(this.state.mins2 === 9 && this.state.mins1 === 5 && this.state.hours < 11) {
+			this.setState({
+				mins2: 0,
+				mins1: 0,
+				hours: this.state.hours + 1
+			})
+		}
+		else if (this.state.mins2 === 9 && this.state.mins1 === 5 && this.state.hours === 12) {
+			this.setState({
+				mins2: 0,
+				mins1: 0,
+				hours: 1
+			})
+		}
+		else if(this.state.mins2 === 9 && this.state.mins1 === 5 && this.state.hours === 11 && this.state.orientation === 'am') {
+			this.setState({
+				orientation: 'pm',
+				mins1: 0,
+				mins2: 0,
+				hours: 12
+			})
+		}
+		else {
+			this.setState({
+				orientation: 'am',
+				mins1: 0,
+				mins2: 0,
+				hours: 12
+			})
+		}
+	}
 
 	setTime(button) {
-		if (button === 'hrs' && this.state.hours < 11) {
+		if (button === 'set' && this.state.set === false) {
+			this.setState({
+				set: true,
+				colonColor: {color: 'red'}
+			})
+			setInterval(this.runClock, 1000)
+		}
+		else if (button === 'set' && this.state.set === true) {
+			this.setState({
+				set: false
+			})
+		}
+		else if (button === 'hrs' && this.state.hours < 11) {
 			this.setState({
 				hours: this.state.hours + 1
 			})
@@ -83,7 +143,6 @@ export class Clock extends Component {
 
 
 	render() {
-		setTimeout(this.clockNotSet, 1000)
 		return (
 			<div className="clock">
 				<Display mins1={this.state.mins1} mins2={this.state.mins2} hours={this.state.hours} orientation={this.state.orientation} colon={this.state.colon} colonColor={this.state.colonColor}/>
