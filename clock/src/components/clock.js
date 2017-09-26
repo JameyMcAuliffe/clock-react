@@ -19,6 +19,8 @@ export class Clock extends Component {
 		this.setTime = this.setTime.bind(this)
 		this.clockNotSet = this.clockNotSet.bind(this)
 		this.runClock = this.runClock.bind(this)
+		this.startClock = this.startClock.bind(this)
+		this.stopClock = this.stopClock.bind(this)
 	}	
 
 
@@ -35,6 +37,14 @@ export class Clock extends Component {
 				})
 			}
 		}
+	}
+
+	startClock() {
+		this.clockInterval = setInterval(this.runClock, 60000)
+	}
+
+	stopClock() {
+		clearInterval(this.clockInterval)
 	}
 
 	componentDidMount() {
@@ -91,12 +101,15 @@ export class Clock extends Component {
 				set: true,
 				colonColor: {color: 'red'}
 			})
-			setInterval(this.runClock, 1000)
+			// setInterval(this.runClock, 1000)
+			this.startClock()
+
 		}
 		else if (button === 'set' && this.state.set === true) {
 			this.setState({
 				set: false
 			})
+			this.stopClock()
 		}
 		else if (button === 'hrs' && this.state.hours < 11) {
 			this.setState({
